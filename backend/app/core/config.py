@@ -29,6 +29,12 @@ class Settings(BaseSettings):
     @field_validator("cors_origins", mode="before")
     @classmethod
     def parse_cors_origins(cls, value):
+        def normalize_origin(origin: str) -> str:
+            normalized = origin.strip()
+            if "://" in normalized:
+                normalized = normalized.rstrip("/")
+            return normalized
+
         if isinstance(value, str):
             raw_value = value.strip()
             if not raw_value:
@@ -42,12 +48,12 @@ class Settings(BaseSettings):
 
                 if not isinstance(parsed, list):
                     raise ValueError("CORS_ORIGINS JSON value must be an array of origins")
-                return [str(item).strip() for item in parsed if str(item).strip()]
+                return [normalize_origin(str(item)) for item in parsed if normalize_origin(str(item))]
 
-            return [item.strip() for item in raw_value.split(",") if item.strip()]
+            return [normalize_origin(item) for item in raw_value.split(",") if normalize_origin(item)]
 
         if isinstance(value, (list, tuple, set)):
-            return [str(item).strip() for item in value if str(item).strip()]
+            return [normalize_origin(str(item)) for item in value if normalize_origin(str(item))]
 
         return value
 
