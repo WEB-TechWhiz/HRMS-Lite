@@ -23,3 +23,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# Confidential local documents
+implemantationPlan.text
