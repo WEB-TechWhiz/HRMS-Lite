@@ -1,0 +1,25 @@
+# ─── Python / Backend ───────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.db          # SQLite database (local dev only)
+*.sqlite3
+
+# Environment variables — NEVER commit secrets
+.env
+
+# ─── Node / Frontend ────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+
+# ─── OS / Editor ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
