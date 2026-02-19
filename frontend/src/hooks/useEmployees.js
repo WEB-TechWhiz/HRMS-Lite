@@ -1,6 +1,6 @@
-﻿import { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
-import { api } from "../services/api";
+import { api, getErrorMessage } from "../services/api";
 
 export function useEmployees() {
   const [employees, setEmployees] = useState([]);
@@ -14,7 +14,7 @@ export function useEmployees() {
       const res = await api.getEmployees();
       setEmployees(res.data || []);
     } catch (err) {
-      setError(err.message || "Failed to fetch employees");
+      setError(getErrorMessage(err, "Failed to fetch employees"));
     } finally {
       setLoading(false);
     }

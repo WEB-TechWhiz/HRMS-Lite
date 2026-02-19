@@ -1,4 +1,4 @@
-# ─── Python / Backend ───────────────────────────────────────────────
+﻿# Python / Backend
 .venv/
 __pycache__/
 *.py[cod]
@@ -6,18 +6,18 @@ __pycache__/
 *.egg-info/
 dist/
 build/
-*.db          # SQLite database (local dev only)
+*.db
 *.sqlite3
 
-# Environment variables — NEVER commit secrets
+# Environment variables
 .env
 
-# ─── Node / Frontend ────────────────────────────────────────────────
+# Node / Frontend
 node_modules/
 dist/
 .vite/
 
-# ─── OS / Editor ────────────────────────────────────────────────────
+# OS / Editor
 .DS_Store
 Thumbs.db
 .idea/

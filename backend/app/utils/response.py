@@ -1,13 +1,24 @@
-﻿def success_response(data=None, message="Success", meta=None):
+﻿from app.middleware.request_context import get_request_id
+
+
+def success_response(data=None, message="Success", meta=None):
+    default_meta = {"requestId": get_request_id()}
+    if meta:
+        default_meta.update(meta)
+
     return {
         "success": True,
         "message": message,
         "data": data,
-        "meta": meta,
+        "meta": default_meta,
     }
 
 
 def error_response(message: str, code: str, details=None, meta=None):
+    default_meta = {"requestId": get_request_id()}
+    if meta:
+        default_meta.update(meta)
+
     return {
         "success": False,
         "message": message,
@@ -15,5 +26,5 @@ def error_response(message: str, code: str, details=None, meta=None):
             "code": code,
             "details": details,
         },
-        "meta": meta,
+        "meta": default_meta,
     }

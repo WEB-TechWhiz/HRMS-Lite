@@ -1,8 +1,10 @@
-﻿export default function ErrorState({ message, onRetry }) {
+export default function ErrorState({ message, onRetry }) {
   return (
-    <div>
+    <div className="state error" role="alert">
       <p>{message}</p>
-      <button type="button" onClick={onRetry}>Retry</button>
+      <div className="state-actions">
+        <button className="btn btn-soft" type="button" onClick={onRetry}>Retry</button>
+      </div>
     </div>
   );
 }
