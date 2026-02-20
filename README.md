@@ -219,37 +219,6 @@ Recommended production split:
 5. Add `VITE_API_BASE_URL=https://<your-backend-domain>`
 6. Deploy.
 
-## GitHub Actions CI/CD (Auto Vercel Deploy)
-
-This repo now includes `.github/workflows/vercel-cicd.yml`.
-
-Behavior:
-
-- On every push to `main`, it runs backend tests and frontend build checks.
-- If checks pass, it deploys backend and frontend to Vercel production.
-- You can also run it manually from GitHub Actions (`workflow_dispatch`).
-
-Required GitHub repository secrets:
-
-- `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`
-- `VERCEL_BACKEND_PROJECT_ID`
-- `VERCEL_FRONTEND_PROJECT_ID`
-
-How to get IDs:
-
-1. Run `vercel login`.
-2. Run `vercel link` inside `backend`.
-3. Run `vercel link` inside `frontend`.
-4. Open generated `.vercel/project.json` in each folder and copy:
-   - `orgId` -> `VERCEL_ORG_ID` (same org for both)
-   - `projectId` -> backend/frontend project secrets
-
-Also make sure Vercel project env vars are set in Vercel dashboard:
-
-- Backend: `DATABASE_URL`, `DATABASE_NAME`, `CORS_ORIGINS`, `APP_NAME`, `APP_VERSION`, `DEBUG`
-- Frontend: `VITE_API_BASE_URL` (pointing to deployed backend URL)
-
 ## Security Notes
 
 - Never commit real credentials in `.env`.
