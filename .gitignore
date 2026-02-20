@@ -16,6 +16,7 @@ build/
 node_modules/
 dist/
 .vite/
+.vercel/
 
 # OS / Editor
 .DS_Store
