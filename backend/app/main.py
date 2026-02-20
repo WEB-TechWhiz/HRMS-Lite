@@ -36,6 +36,14 @@ app.include_router(employee_router, prefix=settings.api_v1_prefix)
 app.include_router(attendance_router, prefix=settings.api_v1_prefix)
 
 
+@app.get("/")
+def root():
+    return success_response(
+        data={"service": settings.app_name, "version": settings.app_version, "health": "/health"},
+        message="HRMS Lite API running",
+    )
+
+
 @app.get("/health")
 def health_check():
     return success_response(data={"status": "ok"}, message="Service healthy")
