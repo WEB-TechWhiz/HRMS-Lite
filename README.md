@@ -1,230 +1,113 @@
-# HRMS Lite
+# HRMS-Lite
 
-HRMS Lite is a full-stack Human Resource Management System for managing employees and attendance with a clean API contract, validation-first backend, and production-ready frontend UX.
+> Lightweight Human Resource Management System (HRMS) for managing employee directories, leave requests, attendance logs, and payroll summaries.
 
-## Features
+---
 
-- Employee management
-  - Create employee with strict validation
-  - Unique constraints on `employeeId` and `email`
-  - List employees with pagination metadata
-  - Delete employee (with cascading attendance cleanup)
-- Attendance management
-  - Mark attendance by `date` and `status` (`Present`/`Absent`)
-  - Optional `punchInTime` and `punchOutTime`
-  - Duplicate prevention: one attendance record per employee per day
-  - View full attendance history by employee
-  - Monthly attendance view with auto-filled absent days
-- Monthly reporting
-  - Separate monthly attendance page in frontend
-  - CSV export for monthly data (Excel-compatible)
-- Reliability
-  - Standardized success/error response schema
-  - Global exception handling with machine-readable error codes
-  - Request ID metadata for traceability
-  - Automated API tests with `pytest` + `mongomock`
+## 📋 Table of Contents
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Contributing](#-contributing)
+- [Author & License](#-author--license)
 
-## Tech Stack
+---
 
-- Frontend: React 19, Vite, React Router, Axios
-- Backend: FastAPI, Pydantic v2, PyMongo
-- Database: MongoDB (local or Atlas)
-- Testing: Pytest, FastAPI TestClient, Mongomock
+## 📌 Overview
+**HRMS-Lite** is designed to provide a comprehensive, maintainable, and scalable solution in the **Enterprise / Human Resources** domain. Engineered with modern industry standards and clean architecture.
 
-## Architecture
+---
 
-Backend uses layered design:
+## ✨ Key Features
+- **Employee Directory**: Comprehensive profiles with department and role tags
+- **Leave Management**: Leave application submission, approval workflow, and balance tracking
+- **Attendance Tracking**: Daily check-in/check-out logs and monthly summaries
 
-`api -> services -> repositories -> database`
+---
 
-Important backend modules:
+## 🛠️ Tech Stack
+- **Clean Architecture**
 
-- `backend/app/api/` - HTTP routes
-- `backend/app/services/` - business logic and validations
-- `backend/app/repositories/` - Mongo data access
-- `backend/app/database/connection.py` - connection and indexes
-- `backend/app/middleware/` - request ID and error handling
+---
 
-## API Endpoints
-
-Health:
-
-- `GET /health`
-
-Employees:
-
-- `POST /employees`
-- `GET /employees?page=1&limit=20`
-- `DELETE /employees/{employee_id}`
-
-Attendance:
-
-- `POST /attendance`
-- `GET /attendance/{employee_id}`
-- `GET /attendance/monthly/{employee_id}?year=2026&month=2`
-
-## Response Contract
-
-Success:
-
-```json
-{
-  "success": true,
-  "message": "Employee created successfully",
-  "data": {},
-  "meta": {
-    "requestId": "..."
-  }
-}
-```
-
-Error:
-
-```json
-{
-  "success": false,
-  "message": "Validation failed",
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "details": {
-      "errors": []
-    }
-  },
-  "meta": {
-    "requestId": "..."
-  }
-}
-```
-
-Common error codes:
-
-- `VALIDATION_ERROR`
-- `NOT_FOUND`
-- `DUPLICATE_EMPLOYEE`
-- `DUPLICATE_ATTENDANCE`
-- `DATABASE_ERROR`
-- `SERVER_ERROR`
-
-## Project Structure
-
+## 📂 Project Structure
 ```text
-backend/
-  app/
-  tests/
-  requirements.txt
-frontend/
-  src/
-  package.json
-README.md
+HRMS-Lite/
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── database/
+│   │   ├── exceptions/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── tests/
+│   │   ├── conftest.py
+│   │   └── test_api.py
+│   ├── .env.example
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env.example
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+└── README.md
 ```
 
-## Local Development Setup
+---
 
-### 1. Backend Setup
+## 🚀 Getting Started
 
-```bash
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-copy .env.example .env
-uvicorn app.main:app --reload
-```
+### Prerequisites
+- Modern web browser (Chrome, Edge, Firefox, Safari)
 
-Backend default URL: `http://127.0.0.1:8000`
+### Usage
 
-Required backend `.env` values:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/WEB-TechWhiz/HRMS-Lite.git
+   cd HRMS-Lite
+   ```
 
-- `DATABASE_URL` (example: `mongodb://localhost:27017` or Atlas URI)
-- `DATABASE_NAME` (example: `hrms_lite`)
-- `CORS_ORIGINS` (comma-separated frontend origins)
+2. **Run locally:**
+   - Open `index.html` directly in your browser or run a local static server:
+   ```bash
+   npx serve .
+   ```
 
-### 2. Frontend Setup
 
-```bash
-cd frontend
-npm install
-copy .env.example .env
-npm run dev
-```
 
-Frontend default URL: `http://127.0.0.1:5173`
 
-Required frontend `.env` value:
+## 🤝 Contributing
+Contributions, feedback, and pull requests are warmly welcomed!
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- `VITE_API_BASE_URL=http://127.0.0.1:8000`
+---
 
-## Testing
-
-Run backend tests:
-
-```bash
-cd backend
-pytest -q
-```
-
-Current tests cover:
-
-- Employee CRUD and duplicate checks
-- Attendance mark/read/monthly behavior
-- Punch time validation rules
-- Validation and error contract
-- Health endpoint contract
-
-## Deployment Guide
-
-Recommended production split:
-
-- Frontend: Netlify or Vercel
-- Backend API: Vercel (Python Serverless)
-- Database: MongoDB Atlas
-
-### Backend deployment (Vercel)
-
-1. Import GitHub repo into Vercel.
-2. Set Root Directory to `backend`.
-3. Set Build Command: `pip install -r requirements.txt`
-4. Set Output Directory: leave default for Python runtime.
-5. Add environment variables:
-   - `DATABASE_URL`
-   - `DATABASE_NAME`
-   - `CORS_ORIGINS` (include deployed frontend URL)
-   - `APP_NAME`
-   - `APP_VERSION`
-   - `DEBUG=false`
-6. Deploy and verify:
-   - `https://<backend-domain>/health`
-
-### Frontend deployment (Netlify)
-
-1. Import GitHub repo into Netlify.
-2. Set Base directory: `frontend`
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. Add environment variable:
-   - `VITE_API_BASE_URL=https://<your-backend-domain>`
-6. Deploy.
-7. For SPA routing, add `frontend/public/_redirects` with:
-
-```text
-/* /index.html 200
-```
-
-### Frontend deployment (Vercel alternative)
-
-1. Import GitHub repo into Vercel.
-2. Set Root Directory to `frontend`.
-3. Build Command: `npm run build`
-4. Output Directory: `dist`
-5. Add `VITE_API_BASE_URL=https://<your-backend-domain>`
-6. Deploy.
-
-## Security Notes
-
-- Never commit real credentials in `.env`.
-- Use unique restricted MongoDB users for production.
-- Keep `CORS_ORIGINS` explicit to deployed frontend domains.
-
-## Confidential File Policy
-
-`implemantationPlan.text` is treated as confidential and should remain local only (not pushed to GitHub).
+## 👤 Author & License
+- **Maintainer**: [WEB-TechWhiz](https://github.com/WEB-TechWhiz)
+- **License**: Distributed under the MIT License.
